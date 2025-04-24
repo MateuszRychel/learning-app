@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
+
 
 function Register() {
     const [formData, setFormData] = useState({
         user_name: '',
         email: '',
-        password: '',
-        hash: '',
-        salt: ''
+        password: ''
     });
 
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -22,15 +21,9 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
-
-        if (formData.password !== formData.confirmPassword) {
-            setError('Passwords do not match');
-            return;
-        }
 
         try {
-            const response = await fetch('http://localhost:5000/api/register', {
+            const response = await fetch('http://localhost:5000/api/Register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,27 +33,27 @@ function Register() {
 
             if (!response.ok) {
                 const resData = await response.json();
-                throw new Error(resData.message || 'Registration failed');
+                console.error('Błąd rejestracji:', resData);
+                return;
             }
 
             navigate('/');
-        } catch (err) {
-            setError(err.message);
+        } catch (error) {
+            console.error('Błąd sieci:', error);
         }
     };
 
     return (
         <div>
             <h1>Register form</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
             
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username:</label>
                     <input 
                         type="text" 
-                        name="username" 
-                        value={formData.username} 
+                        name="user_name" 
+                        value={formData.user_name} 
                         onChange={handleChange} 
                         required 
                     />
@@ -71,7 +64,7 @@ function Register() {
                     <input 
                         type="email" 
                         name="email" 
-                        value={formData.email} 
+                        value={formData.email}  
                         onChange={handleChange} 
                         required 
                     />
@@ -82,27 +75,14 @@ function Register() {
                     <input 
                         type="password" 
                         name="password" 
-                        value={formData.password} 
-                        onChange={handleChange} 
-                        required 
-                    />
-                </div>
-
-                <div>
-                    <label>Confirm Password:</label>
-                    <input 
-                        type="password" 
-                        name="confirmPassword" 
-                        value={formData.confirmPassword} 
+                        value={formData.password}  
                         onChange={handleChange} 
                         required 
                     />
                 </div>
                 
                 <button type="submit">Register</button>
-            
             </form>
-            
         </div>
     );
 }
