@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
-
 function Register() {
     const [formData, setFormData] = useState({
         user_name: '',
@@ -49,7 +48,7 @@ function Register() {
             
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Username:</label>
+                    <label>User name:</label>
                     <input 
                         type="text" 
                         name="user_name" 
