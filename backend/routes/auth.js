@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign(
             { id: user._id },
-            'your_jwt_secret',
+            process.env.JWT_SECRET || 'your_jwt_secret',
             { expiresIn: '1h' }
         );
 
@@ -60,4 +60,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router;
+export default router;

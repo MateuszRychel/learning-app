@@ -1,7 +1,12 @@
 import express from 'express';
 import connectDB from './config/db.js';
-import authRoutes from './routes/auth.js';
+import authRoutes from './routes/auth.js'; 
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: './jwt.env' }); 
+
+console.log(process.env.PORT);
 
 const app = express();
 

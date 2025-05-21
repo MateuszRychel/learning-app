@@ -1,22 +1,19 @@
 import mongoose from 'mongoose';
 
 const wordSchema = new mongoose.Schema({
-    word: String,
-    translation: String,
+    word: { type: String, required: true },
+    translation: { type: String, required: true },
 });
 
 const wordListSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
     },
-    title: String,
+    title: { type: String, required: true },
     words: [wordSchema],
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    }
-});
+}, { timestamps: true });
 
 const WordList = mongoose.model('WordList', wordListSchema);
 
