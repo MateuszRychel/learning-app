@@ -12,9 +12,9 @@ export default function Home() {
         const fetchLists = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('/api/words', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const res = await axios.get('http://localhost:5000/api/words', {
+    headers: { Authorization: `Bearer ${token}` }
+});
                 setLists(res.data);
             } catch (err) {
                 console.error('Error fetching word lists', err);
