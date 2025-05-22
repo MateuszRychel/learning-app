@@ -20,6 +20,10 @@ export default function WordListForm() {
     const handleJSONPaste = () => {
         try {
             const parsed = JSON.parse(jsonInput);
+            if (!parsed.words || !Array.isArray(parsed.words)) {
+                alert('JSON must contain a "words" array');
+                return;
+            }
             setWords(parsed.words);
             setTitle(parsed.title || '');
         } catch (err) {
@@ -28,17 +32,38 @@ export default function WordListForm() {
     };
 
     const handleSubmit = async () => {
-        const token = localStorage.getItem('token');
-        await axios.post('/api/words', { title, words }, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        alert('Saved!');
+        try {
+            const token = localStorage.getItem('token');
+            if (!title.trim()) {
+                alert('Title is required');
+                return;
+            }
+            if (words.length === 0 || words.some(w => !w.word.trim() || !w.translation.trim())) {
+                alert('Fill in all words and translations');
+                return;
+            }
+
+            await axios.post('http://localhost:5000/api/words', { title, words }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            alert('Saved!');
+            setTitle('');
+            setWords([{ word: '', translation: '' }]);
+            setJsonInput('');
+        } catch (error) {
+            alert('Error saving list');
+            console.error(error);
+        }
     };
 
     return (
         <div>
             <h2>Create Word List</h2>
-            <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
             {words.map((w, i) => (
                 <div key={i}>
                     <input
@@ -56,7 +81,12 @@ export default function WordListForm() {
             <button onClick={addField}>Add More</button>
 
             <h3>Or paste JSON</h3>
-            <textarea value={jsonInput} onChange={(e) => setJsonInput(e.target.value)} />
+            <textarea
+                value={jsonInput}
+                onChange={(e) => setJsonInput(e.target.value)}
+                rows={5}
+                style={{ width: '100%' }}
+            />
             <button onClick={handleJSONPaste}>Load from JSON</button>
 
             <br />

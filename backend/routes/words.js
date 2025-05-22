@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'No token' });
 
     try {
-        const decoded = jwt.verify(token, 'your_jwt_secret');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
         req.user = decoded;
         next();
     } catch (err) {
