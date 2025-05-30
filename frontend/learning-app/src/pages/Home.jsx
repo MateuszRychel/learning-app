@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
-export default function Home() {
+function Home() {
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function Home() {
     }, []);
 
     const handleSelectList = (id) => {
-        navigate(`/list/${id}`);
+        navigate(`/test/${id}`);
     };
 
     const handleLogout = () => {
@@ -61,3 +61,5 @@ export default function Home() {
         </div>
     );
 }
+
+export default Home;

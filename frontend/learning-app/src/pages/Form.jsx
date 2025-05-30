@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 
-export default function WordListForm() {
+function WordListForm() {
     const [title, setTitle] = useState('');
     const [words, setWords] = useState([{ word: '', translation: '' }]);
     const [jsonInput, setJsonInput] = useState('');
@@ -94,3 +94,5 @@ export default function WordListForm() {
         </div>
     );
 }
+
+export default Form;
