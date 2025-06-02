@@ -40,10 +40,6 @@ export default function Home() {
     return (
         <div style={{ padding: '2rem' }}>
             <h1>Your Word Lists</h1>
-            
-            <button onClick={handleLogout} style={{ marginBottom: '1rem' }}>
-                Wyloguj
-            </button>
 
             {lists.length === 0 ? (
                 <p>No lists found. Create one!</p>
