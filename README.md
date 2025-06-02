@@ -45,5 +45,31 @@
 ### 1. Klonowanie repozytorium
 
 ```bash
+
 git clone https://github.com/MateuszRychel/learning-app.git
 cd learning-app
+
+```
+
+### 2. Jak uruchomić projekt
+
+### Frontend
+
+Aby uruchomić frontend:
+
+```bash
+cd frontend
+cd learning-app
+npm install      # tylko przy pierwszym uruchomieniu
+npm run dev
+
+```
+
+### Backend
+
+Aby uruchomić backend:
+
+```bash
+node backend/server.js
+
+```
