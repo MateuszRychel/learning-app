@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
-function Home() {
+export default function Home() {
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -61,5 +61,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;
