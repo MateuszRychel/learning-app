@@ -27,7 +27,7 @@ export default function Home() {
     }, []);
 
     const handleSelectList = (id) => {
-        navigate(`/list/${id}`);
+        navigate(`/test/${id}`);
     };
 
     const handleLogout = () => {
