@@ -52,7 +52,7 @@ function MainNavigation() {
           className="flex items-center space-x-1 text-red-600 hover:text-red-800 font-semibold transition-colors duration-200"
         >
           <ArrowLeftOnRectangleIcon className="h-5 w-5" />
-          <span>Wyloguj</span>
+          <span>Logout</span>
         </button>
       </div>
     </nav>
