@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './index.css';
 
 import Home from './pages/Home';
 import Form from './pages/Form';
