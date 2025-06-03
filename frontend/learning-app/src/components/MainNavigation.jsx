@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeIcon, PencilSquareIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
-  
+import {
+  HomeIcon,
+  PencilSquareIcon,
+  ArrowLeftOnRectangleIcon
+} from '@heroicons/react/24/outline';
+
 const navigation = [
   { name: 'Home', href: '/', icon: HomeIcon },
   { name: 'Form', href: '/form', icon: PencilSquareIcon },
-  { name: 'Logout', href: '/logout', icon: ArrowLeftOnRectangleIcon },
 ];
 
 function classNames(...classes) {
@@ -14,12 +17,15 @@ function classNames(...classes) {
 
 function MainNavigation() {
   const location = useLocation();
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <div className="w-64 bg-white border-r shadow-md">
-        <div className="p-4 text-xl font-bold text-gray-800">Learning app</div>
-        <nav className="mt-5 space-y-1">
+    <nav className="w-full bg-gray-100 shadow-md fixed top-0 left-0 z-50">
+      <div className="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
+        <div className="flex space-x-8">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
@@ -28,28 +34,28 @@ function MainNavigation() {
                 to={item.href}
                 className={classNames(
                   isActive
-                    ? 'bg-gray-200 text-gray-900'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                  'group flex items-center px-4 py-2 text-sm font-medium rounded-md'
+                    ? 'text-blue-600'
+                    : 'text-gray-700 hover:text-blue-500',
+                  'flex items-center space-x-1 font-semibold transition-colors duration-200'
                 )}
               >
-                <item.icon width={50}
-                  className={classNames(
-                    isActive ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                    'mr-1 h-2 w-2'
-                  )}
-                  aria-hidden="true"
-                />
-                {item.name}
+                <item.icon className="h-5 w-5" aria-hidden="true" />
+                <span>{item.name}</span>
               </Link>
             );
           })}
-        </nav>
-      </div>
+        </div>
 
-      <div className="flex-1 p-6">
+        {}
+        <button
+          onClick={handleLogout}
+          className="flex items-center space-x-1 text-red-600 hover:text-red-800 font-semibold transition-colors duration-200"
+        >
+          <ArrowLeftOnRectangleIcon className="h-5 w-5" />
+          <span>Logout</span>
+        </button>
       </div>
-    </div>
+    </nav>
   );
 }
 
